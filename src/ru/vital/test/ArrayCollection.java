@@ -60,15 +60,7 @@ public class ArrayCollection<T> implements Collection<T> {
         if (size == 0) {
             a[0] = null;
             return a;
-        }
-
-        /*if (a.length <= size) {
-            T1[] b = a;
-            for (int i = 0; i < size; i++) {
-                b[i] = (T1)m[i];
-            }
-            return b;
-        }*/
+        }  
         if (a.length < size)
             return (T1[]) Arrays.copyOf(this.m, size, a.getClass());
         if (a.length == size) {
