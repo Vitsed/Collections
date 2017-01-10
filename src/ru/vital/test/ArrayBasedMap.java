@@ -4,8 +4,12 @@ import java.util.*;
 
 public class ArrayBasedMap<K, V> implements Map<K, V> {
 
-    private List<Pair> values = new ArrayList<Pair>();
+    private List<Pair> values = new ArrayList<>();
 
+//    public void demoValuesContent () {
+//        for (Pair p : values)
+//            System.out.printf("[%s = %s]\n", p.getKey(), p.getValue());
+//    }
     @Override
     public int size() {
         // BEGIN (write your solution here)
@@ -23,35 +27,105 @@ public class ArrayBasedMap<K, V> implements Map<K, V> {
     @Override
     public boolean containsKey(Object key) {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        for (Pair p : values) {
+            if (key == null) {
+                if (p.getKey() == null)
+                    return true;
+            }
+            else {
+                if (key.equals(p.getKey()))
+                    return true;
+            }
+        }
+        return false;
         // END
     }
 
     @Override
     public boolean containsValue(Object value) {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        for (Pair p : values) {
+            if (value != null)
+                if (value.equals(p.getValue()))
+                    return true;
+            else if (p.getValue() == null)
+                return true;
+        }
+        return false;
         // END
     }
 
     @Override
     public V get(Object key) {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        for (Pair p : values) {
+            if (key != null)
+                if (key.equals(p.getKey()))
+                    return p.getValue();
+            else {
+                    if (p.getKey() == null)
+                        return p.getValue();
+                }
+        }
+        return null;
         // END
     }
 
     @Override
     public V put(K key, V value) {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        if (values.isEmpty()) {
+            values.add(new Pair(key, value));
+            return null;
+        }
+
+        else {
+            if (this.containsKey(key)) {
+                for (Pair p : values) {
+                    if (key == null) {
+                        if(p.getKey() == null) {
+                            V result = p.getValue();
+                            p.setValue(value);
+                            return result;
+                        }
+                    }
+                    else {
+                        if(key.equals(p.getKey())) {
+                            V result = p.getValue();
+                            p.setValue(value);
+                            return result;
+                        }
+                    }
+                }
+            }
+            else {
+                values.add(new Pair(key, value));
+                return null;
+            }
+        }
+        return null;
         // END
     }
 
     @Override
     public V remove(Object key) {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        if (this.containsKey(key)) {
+            for (Pair p : values) {
+                if (null == p.getKey()) {
+                    V temp = p.getValue();
+                    values.remove(p);
+                    return temp;
+                }
+
+                else if (key.equals(p.getKey())) {
+                    V temp = p.getValue();
+                    values.remove(p);
+                    return temp;
+                }
+            }
+        }
+        return null;
         // END
     }
 
@@ -78,7 +152,11 @@ public class ArrayBasedMap<K, V> implements Map<K, V> {
     @Override
     public Collection<V> values() {
         // BEGIN (write your solution here)
-        throw new UnsupportedOperationException();
+        Collection<V> collection = new ArrayList<>();
+        for (Pair p : values) {
+             collection.add(p.getValue());
+        }
+        return collection;
         // END
     }
 
